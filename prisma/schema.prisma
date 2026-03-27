@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id          String     @id @default(uuid())
+  name        String
+  slug        String     @unique
+  description String?
+  image       String?
+  parentId    String?
+  parent      Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryTree")
+  products    Product[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Product {
+  id               String      @id @default(uuid())
+  name             String
+  slug             String      @unique
+  description      String
+  shortDescription String
+  price            Float
+  compareAtPrice   Float?
+  sku              String      @unique
+  stock            Int         @default(0)
+  images           String      @default("[]")
+  specs            String?
+  featured         Boolean     @default(false)
+  active           Boolean     @default(true)
+  categoryId       String
+  category         Category    @relation(fields: [categoryId], references: [id])
+  orderItems       OrderItem[]
+  reviews          Review[]
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+}
+
+model Order {
+  id              String    @id @default(uuid())
+  orderNumber     String    @unique
+  status          String    @default("PENDING")
+  paymentMethod   String    @default("COD")
+  paymentStatus   String    @default("PENDING")
+  subtotal        Float
+  shippingCost    Float
+  total           Float
+  notes           String?
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  shippingAddress String
+  items           OrderItem[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  unitPrice Float
+  total     Float
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id            String   @id @default(uuid())
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  customerName  String
+  customerEmail String
+  rating        Int
+  comment       String?
+  approved      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+}
