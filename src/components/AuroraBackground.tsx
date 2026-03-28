@@ -85,8 +85,8 @@ export default function AuroraBackground() {
             o += currentContribution * (1. + tailNoise * .8) * thinnessFactor;
           }
 
-          o = tanh(pow(o / 100., vec4(1.6)));
-          gl_FragColor = o * 1.5;
+          o = tanh(pow(o / 80., vec4(1.4)));
+          gl_FragColor = o * 2.5 + vec4(0.02, 0.03, 0.06, 1.0);
         }
       `,
     });
