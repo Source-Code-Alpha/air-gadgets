@@ -18,11 +18,20 @@ export default function FeaturedProducts() {
   if (products.length === 0) return null;
 
   return (
-    <section className="bg-[#0a0a0a] py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h2 className="mb-12 text-center text-3xl font-bold text-white sm:text-4xl">
-          Featured Products
+    <section className="relative py-24 overflow-hidden">
+      {/* Mesh background */}
+      <div className="absolute inset-0 mesh-bg-1" />
+
+      {/* Radial glow */}
+      <div className="absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-[#0080FF]/[0.04] blur-[120px]" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h2 className="mb-4 text-center text-3xl font-bold sm:text-4xl">
+          <span className="gradient-text-wide">Featured Products</span>
         </h2>
+        <p className="mx-auto mb-12 max-w-xl text-center text-gray-400">
+          Handpicked smart home essentials for your connected lifestyle
+        </p>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {products.map((product) => (

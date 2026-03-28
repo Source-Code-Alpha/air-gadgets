@@ -15,7 +15,6 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
   const { items, updateQuantity, removeFromCart, cartTotal, cartCount } =
     useCart();
 
-  // Prevent body scroll when open
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -31,7 +30,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
     <>
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 bg-black/60 backdrop-blur-md transition-opacity duration-300 ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         onClick={onClose}
@@ -39,19 +38,23 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
 
       {/* Drawer */}
       <div
-        className={`fixed inset-y-0 right-0 z-50 w-full max-w-md transform bg-[#0a0a0a] shadow-2xl transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-y-0 right-0 z-50 w-full max-w-md transform shadow-2xl transition-transform duration-300 ease-in-out ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
+        style={{
+          background: "linear-gradient(180deg, #0d1a2f 0%, #0a1628 100%)",
+          borderLeft: "1px solid rgba(255,255,255,0.06)",
+        }}
       >
         <div className="flex h-full flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-[#1f2937] px-6 py-4">
+          <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-4">
             <h2 className="text-lg font-semibold text-white">
               Cart ({cartCount})
             </h2>
             <button
               onClick={onClose}
-              className="text-gray-400 transition-colors hover:text-white"
+              className="rounded-lg p-1 text-gray-400 transition-all duration-300 hover:bg-white/[0.05] hover:text-white"
             >
               <X className="h-5 w-5" />
             </button>
@@ -69,7 +72,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
               </p>
               <button
                 onClick={onClose}
-                className="rounded-lg bg-[#0080FF] px-6 py-2.5 text-sm font-medium text-white hover:bg-[#0066cc]"
+                className="glow-btn rounded-lg px-6 py-2.5 text-sm font-medium text-white"
               >
                 Continue Shopping
               </button>
@@ -81,9 +84,9 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                   {items.map((item) => (
                     <div
                       key={item.product.id}
-                      className="flex gap-3 rounded-xl border border-[#1f2937] bg-[#111827] p-3"
+                      className="flex gap-3 glass-card p-3"
                     >
-                      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-[#0a0a0a]">
+                      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-[#0a1628]">
                         <Image
                           src={item.product.image}
                           alt={item.product.name}
@@ -99,19 +102,16 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                           </p>
                           <button
                             onClick={() => removeFromCart(item.product.id)}
-                            className="shrink-0 text-gray-500 hover:text-red-400"
+                            className="shrink-0 text-gray-500 transition-colors hover:text-red-400"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                           </button>
                         </div>
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center rounded border border-[#1f2937] bg-[#0a0a0a]">
+                          <div className="flex items-center rounded-lg border border-white/[0.08] bg-white/[0.02]">
                             <button
                               onClick={() =>
-                                updateQuantity(
-                                  item.product.id,
-                                  item.quantity - 1
-                                )
+                                updateQuantity(item.product.id, item.quantity - 1)
                               }
                               className="px-2 py-1 text-gray-400 hover:text-white"
                             >
@@ -122,19 +122,15 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                             </span>
                             <button
                               onClick={() =>
-                                updateQuantity(
-                                  item.product.id,
-                                  item.quantity + 1
-                                )
+                                updateQuantity(item.product.id, item.quantity + 1)
                               }
                               className="px-2 py-1 text-gray-400 hover:text-white"
                             >
                               <Plus className="h-3 w-3" />
                             </button>
                           </div>
-                          <span className="text-sm font-semibold text-white">
-                            $
-                            {(item.product.price * item.quantity).toFixed(2)}
+                          <span className="text-sm font-semibold gradient-text">
+                            ${(item.product.price * item.quantity).toFixed(2)}
                           </span>
                         </div>
                       </div>
@@ -144,10 +140,10 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-[#1f2937] px-6 py-4">
+              <div className="border-t border-white/[0.06] px-6 py-4">
                 <div className="mb-4 flex items-center justify-between">
                   <span className="text-sm text-gray-400">Total</span>
-                  <span className="text-lg font-bold text-[#0080FF]">
+                  <span className="text-lg font-bold gradient-text">
                     ${cartTotal.toFixed(2)}
                   </span>
                 </div>
@@ -155,14 +151,14 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                   <Link
                     href="/cart"
                     onClick={onClose}
-                    className="flex-1 rounded-lg border border-[#1f2937] py-3 text-center text-sm font-medium text-gray-300 transition-colors hover:border-gray-500 hover:text-white"
+                    className="flex-1 glass-card rounded-lg py-3 text-center text-sm font-medium text-gray-300 transition-all duration-300 hover:border-white/20 hover:text-white"
                   >
                     View Cart
                   </Link>
                   <Link
                     href="/checkout"
                     onClick={onClose}
-                    className="flex-1 rounded-lg bg-[#0080FF] py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-[#0066cc]"
+                    className="glow-btn flex-1 rounded-lg py-3 text-center text-sm font-semibold text-white"
                   >
                     Checkout
                   </Link>

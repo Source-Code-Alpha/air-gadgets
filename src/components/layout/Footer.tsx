@@ -28,12 +28,21 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#1f2937] bg-[#0a0a0a]">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="relative overflow-hidden">
+      {/* Top divider */}
+      <div className="section-divider" />
+
+      {/* Background */}
+      <div className="absolute inset-0" style={{
+        background: "linear-gradient(180deg, #0a1628 0%, #0d1a2f 50%, #0a1628 100%)",
+      }} />
+      <div className="absolute inset-0 bg-grid opacity-50" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Company */}
           <div>
-            <Link href="/" className="mb-4 inline-block">
+            <Link href="/" className="mb-6 inline-block">
               <Image
                 src="/logo-transparent.png"
                 alt="Air Gadgets"
@@ -43,7 +52,7 @@ export default function Footer() {
                 unoptimized
               />
             </Link>
-            <p className="mb-4 text-sm text-gray-400">
+            <p className="mb-6 text-sm leading-relaxed text-gray-400">
               Premium smart home gadgets and automation systems for the modern
               home. Elevate your living experience with cutting-edge technology.
             </p>
@@ -53,7 +62,7 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="rounded-lg bg-[#111827] p-2 text-gray-400 transition-colors hover:bg-[#1f2937] hover:text-white"
+                  className="glass-card rounded-lg p-2.5 text-gray-400 transition-all duration-300 hover:border-[#0080FF]/30 hover:text-[#00D4FF] hover:shadow-[0_0_15px_rgba(0,128,255,0.1)]"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -63,15 +72,15 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
+            <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider gradient-text">
               Quick Links
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 transition-colors hover:text-white"
+                    className="text-sm text-gray-400 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -82,15 +91,15 @@ export default function Footer() {
 
           {/* Customer Service */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
+            <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider gradient-text">
               Customer Service
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {customerLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-400 transition-colors hover:text-white"
+                    className="text-sm text-gray-400 transition-all duration-300 hover:text-white hover:translate-x-1 inline-block"
                   >
                     {link.label}
                   </Link>
@@ -101,7 +110,7 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
+            <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider gradient-text">
               Newsletter
             </h3>
             <p className="mb-4 text-sm text-gray-400">
@@ -114,11 +123,11 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="your@email.com"
-                className="flex-1 rounded-lg border border-[#1f2937] bg-[#111827] px-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-[#0080FF]"
+                className="flex-1 rounded-lg glass-card px-3 py-2.5 text-sm text-white placeholder-gray-500 outline-none transition-all duration-300 focus:border-[#0080FF]/40 focus:shadow-[0_0_15px_rgba(0,128,255,0.08)]"
               />
               <button
                 type="submit"
-                className="rounded-lg bg-[#0080FF] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#0066cc]"
+                className="glow-btn rounded-lg px-4 py-2.5 text-sm font-medium text-white"
               >
                 Join
               </button>
@@ -126,7 +135,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-[#1f2937] pt-6 text-center text-sm text-gray-500">
+        <div className="section-divider mt-12" />
+        <div className="pt-8 text-center text-sm text-gray-500">
           © {new Date().getFullYear()} Air Gadgets. All rights reserved.
         </div>
       </div>

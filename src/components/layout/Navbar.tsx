@@ -34,7 +34,11 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-40 border-b border-[#1f2937] bg-[#0a0a0a]/80 backdrop-blur-lg">
+      <nav className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#0a1628]/70 backdrop-blur-xl"
+        style={{
+          borderImage: "linear-gradient(90deg, transparent, rgba(0,128,255,0.2), rgba(0,212,255,0.15), rgba(124,58,237,0.2), transparent) 1",
+        }}
+      >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link href="/" className="flex items-center">
@@ -55,9 +59,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-white"
+                className="text-sm font-medium text-gray-300 transition-all duration-300 hover:text-white relative group"
               >
                 {link.label}
+                <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-[#0080FF] to-[#00D4FF] transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
           </div>
@@ -73,7 +78,7 @@ export default function Navbar() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search..."
                   autoFocus
-                  className="w-32 rounded-lg border border-[#1f2937] bg-[#111827] px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:border-[#0080FF] focus:outline-none sm:w-48"
+                  className="w-32 rounded-lg glass-card px-3 py-1.5 text-sm text-white placeholder-gray-500 focus:border-[#0080FF]/40 focus:outline-none sm:w-48"
                   onBlur={() => {
                     if (!searchQuery) setSearchOpen(false);
                   }}
@@ -88,7 +93,7 @@ export default function Navbar() {
             ) : (
               <button
                 aria-label="Search"
-                className="text-gray-300 transition-colors hover:text-white"
+                className="text-gray-400 transition-all duration-300 hover:text-[#00D4FF]"
                 onClick={() => setSearchOpen(true)}
               >
                 <Search className="h-5 w-5" />
@@ -98,12 +103,19 @@ export default function Navbar() {
             {/* Cart */}
             <button
               onClick={() => setCartOpen(true)}
-              className="relative text-gray-300 transition-colors hover:text-white"
+              className="relative text-gray-400 transition-all duration-300 hover:text-[#00D4FF]"
               aria-label="Open cart"
             >
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#0080FF] text-[10px] font-bold text-white">
+                <span
+                  className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white"
+                  style={{
+                    background: "linear-gradient(135deg, #0080FF, #00D4FF)",
+                    boxShadow: "0 0 10px rgba(0,128,255,0.4)",
+                    animation: "cart-bounce 0.3s ease",
+                  }}
+                >
                   {cartCount}
                 </span>
               )}
@@ -112,7 +124,7 @@ export default function Navbar() {
             {/* Mobile toggle */}
             <button
               aria-label="Toggle menu"
-              className="text-gray-300 transition-colors hover:text-white md:hidden"
+              className="text-gray-400 transition-all duration-300 hover:text-white md:hidden"
               onClick={() => setMobileOpen((o) => !o)}
             >
               {mobileOpen ? (
@@ -130,13 +142,13 @@ export default function Navbar() {
             mobileOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="space-y-1 border-t border-[#1f2937] px-4 py-4">
+          <div className="space-y-1 border-t border-white/[0.06] px-4 py-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="block rounded-lg px-3 py-2 text-base font-medium text-gray-300 transition-colors hover:bg-[#111827] hover:text-white"
+                className="block rounded-lg px-3 py-2 text-base font-medium text-gray-300 transition-all duration-300 hover:bg-white/[0.04] hover:text-white"
               >
                 {link.label}
               </Link>

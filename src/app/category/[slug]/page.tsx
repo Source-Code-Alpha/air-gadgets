@@ -57,7 +57,7 @@ export default function CategoryPage() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center">
         <h1 className="mb-4 text-2xl font-bold text-white">Category Not Found</h1>
-        <Link href="/products" className="rounded-lg bg-[#0080FF] px-6 py-3 text-sm font-medium text-white hover:bg-[#0066cc]">
+        <Link href="/products" className="glow-btn rounded-lg px-6 py-3 text-sm font-medium text-white">
           Browse Products
         </Link>
       </div>
@@ -67,15 +67,17 @@ export default function CategoryPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <nav className="mb-6 flex items-center gap-2 text-sm text-gray-400">
-        <Link href="/" className="hover:text-white">Home</Link>
+        <Link href="/" className="hover:text-white transition-colors">Home</Link>
         <ChevronRight className="h-3 w-3" />
-        <Link href="/products" className="hover:text-white">Categories</Link>
+        <Link href="/products" className="hover:text-white transition-colors">Categories</Link>
         <ChevronRight className="h-3 w-3" />
-        <span className="text-white">{category?.name || slug}</span>
+        <span className="gradient-text font-medium">{category?.name || slug}</span>
       </nav>
 
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white">{category?.name || slug}</h1>
+        <h1 className="text-3xl font-bold">
+          <span className="gradient-text-wide">{category?.name || slug}</span>
+        </h1>
         {category?.description && <p className="mt-2 text-gray-400">{category.description}</p>}
       </div>
 
@@ -87,7 +89,7 @@ export default function CategoryPage() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as SortOption)}
-            className="appearance-none rounded-lg border border-[#1f2937] bg-[#111827] px-4 py-2 pr-8 text-sm text-white focus:border-[#0080FF] focus:outline-none"
+            className="appearance-none rounded-lg glass-card px-4 py-2 pr-8 text-sm text-white focus:border-[#0080FF]/40 focus:outline-none"
           >
             <option value="newest">Newest</option>
             <option value="price-asc">Price: Low → High</option>
@@ -111,9 +113,9 @@ export default function CategoryPage() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-[#1f2937] bg-[#111827] py-20">
+        <div className="flex flex-col items-center justify-center glass-card rounded-2xl py-20">
           <p className="mb-2 text-lg font-medium text-white">No products in this category yet</p>
-          <Link href="/products" className="mt-4 rounded-lg bg-[#0080FF] px-6 py-2 text-sm font-medium text-white hover:bg-[#0066cc]">
+          <Link href="/products" className="glow-btn mt-4 rounded-lg px-6 py-2 text-sm font-medium text-white">
             Browse All Products
           </Link>
         </div>

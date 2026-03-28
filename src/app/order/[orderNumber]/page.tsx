@@ -12,7 +12,7 @@ export default function OrderConfirmationPage() {
     <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 py-16">
       <div className="w-full max-w-lg text-center">
         {/* Animated checkmark */}
-        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-500/10">
+        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full" style={{ background: "rgba(34,197,94,0.1)", boxShadow: "0 0 40px rgba(34,197,94,0.1)" }}>
           <CheckCircle className="h-12 w-12 text-green-500 animate-[pulse_1s_ease-in-out]" />
         </div>
 
@@ -24,10 +24,10 @@ export default function OrderConfirmationPage() {
         </p>
 
         {/* Order details card */}
-        <div className="mb-8 rounded-2xl border border-[#1f2937] bg-[#111827] p-6 text-left">
+        <div className="glass-card mb-8 p-6 text-left">
           <div className="mb-4 flex items-center justify-between">
             <span className="text-sm text-gray-400">Order Number</span>
-            <span className="font-mono text-sm font-bold text-[#0080FF]">
+            <span className="font-mono text-sm font-bold gradient-text">
               {orderNumber}
             </span>
           </div>
@@ -39,32 +39,30 @@ export default function OrderConfirmationPage() {
 
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-400">Status</span>
-            <span className="rounded-full bg-yellow-500/10 px-3 py-1 text-xs font-medium text-yellow-400">
+            <span className="rounded-full border border-yellow-500/20 bg-yellow-500/10 px-3 py-1 text-xs font-medium text-yellow-400">
               Pending
             </span>
           </div>
         </div>
 
         {/* Delivery timeline */}
-        <div className="mb-8 rounded-2xl border border-[#1f2937] bg-[#111827] p-6">
-          <h2 className="mb-4 text-left text-sm font-semibold text-white">
+        <div className="glass-card mb-8 p-6">
+          <h2 className="mb-4 text-left text-sm font-semibold gradient-text">
             Estimated Delivery
           </h2>
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0080FF]/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full" style={{ background: "rgba(0,128,255,0.1)" }}>
                 <Package className="h-5 w-5 text-[#0080FF]" />
               </div>
               <div className="text-left">
-                <p className="text-sm font-medium text-white">
-                  Processing
-                </p>
+                <p className="text-sm font-medium text-white">Processing</p>
                 <p className="text-xs text-gray-400">1-2 business days</p>
               </div>
             </div>
-            <div className="ml-5 h-6 border-l border-dashed border-[#1f2937]" />
+            <div className="ml-5 h-6 border-l border-dashed border-white/[0.08]" />
             <div className="flex items-center gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-500/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.03]">
                 <Truck className="h-5 w-5 text-gray-500" />
               </div>
               <div className="text-left">
@@ -77,7 +75,7 @@ export default function OrderConfirmationPage() {
 
         <Link
           href="/products"
-          className="inline-block rounded-lg bg-[#0080FF] px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#0066cc]"
+          className="glow-btn inline-block rounded-lg px-8 py-3 text-sm font-semibold text-white"
         >
           Continue Shopping
         </Link>

@@ -45,7 +45,7 @@ function SearchContent() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search products..."
-            className="w-full rounded-xl border border-[#1f2937] bg-[#111827] py-4 pl-12 pr-4 text-base text-white placeholder-gray-500 focus:border-[#0080FF] focus:outline-none"
+            className="w-full rounded-xl glass-card py-4 pl-12 pr-4 text-base text-white placeholder-gray-500 focus:border-[#0080FF]/40 focus:outline-none focus:shadow-[0_0_30px_rgba(0,128,255,0.1)] transition-all duration-300"
             autoFocus
           />
         </div>
@@ -71,11 +71,11 @@ function SearchContent() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-[#1f2937] bg-[#111827] py-20">
+            <div className="flex flex-col items-center justify-center glass-card rounded-2xl py-20">
               <Search className="mb-4 h-12 w-12 text-gray-600" />
               <p className="mb-2 text-lg font-medium text-white">No results found</p>
               <p className="mb-6 text-sm text-gray-400">Try different keywords or browse all products</p>
-              <Link href="/products" className="rounded-lg bg-[#0080FF] px-6 py-2.5 text-sm font-medium text-white hover:bg-[#0066cc]">
+              <Link href="/products" className="glow-btn rounded-lg px-6 py-2.5 text-sm font-medium text-white">
                 Browse All Products
               </Link>
             </div>

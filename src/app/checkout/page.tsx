@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Banknote, ShoppingBag, Loader2 } from "lucide-react";
+import { Banknote, ShoppingBag, Loader2, MapPin, CreditCard, StickyNote } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
 interface ShippingForm {
@@ -30,6 +30,12 @@ const initialForm: ShippingForm = {
   country: "",
   notes: "",
 };
+
+const steps = [
+  { icon: MapPin, label: "Shipping" },
+  { icon: CreditCard, label: "Payment" },
+  { icon: StickyNote, label: "Notes" },
+];
 
 export default function CheckoutPage() {
   const { items, cartTotal, clearCart } = useCart();
@@ -112,10 +118,12 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center px-4">
-        <ShoppingBag className="mb-4 h-16 w-16 text-gray-600" />
+        <div className="mb-4 rounded-full bg-white/[0.03] p-6">
+          <ShoppingBag className="h-12 w-12 text-gray-600" />
+        </div>
         <h1 className="mb-2 text-2xl font-bold text-white">Cart is empty</h1>
         <p className="mb-6 text-gray-400">Add some products before checking out.</p>
-        <Link href="/products" className="rounded-lg bg-[#0080FF] px-8 py-3 text-sm font-semibold text-white hover:bg-[#0066cc]">
+        <Link href="/products" className="glow-btn rounded-lg px-8 py-3 text-sm font-semibold text-white">
           Browse Products
         </Link>
       </div>
@@ -123,15 +131,38 @@ export default function CheckoutPage() {
   }
 
   const inputClass = (field: keyof ShippingForm) =>
-    `w-full rounded-lg border px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none transition-colors ${
+    `w-full rounded-lg glass-card px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
       errors[field]
-        ? "border-red-500/50 bg-red-500/5 focus:border-red-500"
-        : "border-[#1f2937] bg-[#111827] focus:border-[#0080FF]"
+        ? "border-red-500/30 focus:border-red-500/50 focus:shadow-[0_0_20px_rgba(239,68,68,0.08)]"
+        : "focus:border-[#0080FF]/40 focus:shadow-[0_0_20px_rgba(0,128,255,0.08)]"
     }`;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="mb-8 text-3xl font-bold text-white">Checkout</h1>
+      <h1 className="mb-4 text-3xl font-bold">
+        <span className="gradient-text-wide">Checkout</span>
+      </h1>
+
+      {/* Step indicators */}
+      <div className="mb-8 flex items-center justify-center gap-8">
+        {steps.map((step, idx) => (
+          <div key={step.label} className="flex items-center gap-2">
+            <div
+              className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold"
+              style={{
+                background: "linear-gradient(135deg, #0080FF, #00D4FF)",
+                boxShadow: "0 0 15px rgba(0,128,255,0.3)",
+              }}
+            >
+              <step.icon className="h-4 w-4 text-white" />
+            </div>
+            <span className="text-sm font-medium text-gray-300">{step.label}</span>
+            {idx < steps.length - 1 && (
+              <div className="ml-4 h-px w-12 bg-gradient-to-r from-[#0080FF]/30 to-transparent" />
+            )}
+          </div>
+        ))}
+      </div>
 
       {apiError && (
         <div className="mb-6 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
@@ -142,8 +173,8 @@ export default function CheckoutPage() {
       <form onSubmit={handleSubmit}>
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
-            <div className="rounded-2xl border border-[#1f2937] bg-[#111827] p-6">
-              <h2 className="mb-6 text-lg font-semibold text-white">Shipping Information</h2>
+            <div className="glass-card p-6">
+              <h2 className="mb-6 text-lg font-semibold gradient-text">Shipping Information</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">
                   <label className="mb-1.5 block text-sm text-gray-400">Full Name *</label>
@@ -188,10 +219,12 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[#1f2937] bg-[#111827] p-6">
-              <h2 className="mb-4 text-lg font-semibold text-white">Payment Method</h2>
-              <div className="flex items-center gap-3 rounded-lg border border-[#0080FF] bg-[#0080FF]/5 p-4">
-                <Banknote className="h-5 w-5 text-[#0080FF]" />
+            <div className="glass-card p-6">
+              <h2 className="mb-4 text-lg font-semibold gradient-text">Payment Method</h2>
+              <div className="flex items-center gap-3 rounded-lg border border-[#0080FF]/30 p-4" style={{ background: "rgba(0,128,255,0.05)" }}>
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ background: "linear-gradient(135deg, #0080FF, #00D4FF)" }}>
+                  <Banknote className="h-5 w-5 text-white" />
+                </div>
                 <div>
                   <p className="text-sm font-medium text-white">Cash on Delivery</p>
                   <p className="text-xs text-gray-400">Pay when your order arrives</p>
@@ -199,8 +232,8 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[#1f2937] bg-[#111827] p-6">
-              <h2 className="mb-4 text-lg font-semibold text-white">
+            <div className="glass-card p-6">
+              <h2 className="mb-4 text-lg font-semibold gradient-text">
                 Order Notes <span className="text-sm font-normal text-gray-500">(optional)</span>
               </h2>
               <textarea
@@ -208,18 +241,20 @@ export default function CheckoutPage() {
                 onChange={(e) => update("notes", e.target.value)}
                 placeholder="Special delivery instructions, gift notes, etc."
                 rows={3}
-                className="w-full rounded-lg border border-[#1f2937] bg-[#0a0a0a] px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-[#0080FF] focus:outline-none"
+                className="w-full rounded-lg glass-card px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-[#0080FF]/40 focus:outline-none focus:shadow-[0_0_20px_rgba(0,128,255,0.08)] transition-all duration-300"
               />
             </div>
           </div>
 
           <div className="lg:col-span-1">
-            <div className="sticky top-24 rounded-2xl border border-[#1f2937] bg-[#111827] p-6">
-              <h2 className="mb-6 text-lg font-semibold text-white">Order Summary</h2>
+            <div className="sticky top-24 glass-card rounded-2xl p-6" style={{
+              background: "linear-gradient(180deg, rgba(0,128,255,0.04), rgba(255,255,255,0.03))",
+            }}>
+              <h2 className="mb-6 text-lg font-semibold gradient-text">Order Summary</h2>
               <div className="mb-4 max-h-64 space-y-3 overflow-y-auto">
                 {items.map((item) => (
                   <div key={item.product.id} className="flex gap-3">
-                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-[#0a0a0a]">
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-[#0a1628]">
                       <Image src={item.product.image} alt={item.product.name} fill className="object-cover" sizes="48px" />
                     </div>
                     <div className="flex min-w-0 flex-1 justify-between">
@@ -235,7 +270,7 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              <div className="space-y-3 border-t border-[#1f2937] pt-4 text-sm">
+              <div className="space-y-3 border-t border-white/[0.06] pt-4 text-sm">
                 <div className="flex justify-between text-gray-400">
                   <span>Subtotal</span>
                   <span className="text-white">${cartTotal.toFixed(2)}</span>
@@ -245,10 +280,11 @@ export default function CheckoutPage() {
                   <span className="text-white">{shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}</span>
                 </div>
                 {shipping > 0 && <p className="text-xs text-gray-500">Free shipping on orders over $200</p>}
-                <div className="border-t border-[#1f2937] pt-3">
+                <div className="section-divider" />
+                <div className="pt-3">
                   <div className="flex justify-between text-base font-semibold">
                     <span className="text-white">Total</span>
-                    <span className="text-[#0080FF]">${total.toFixed(2)}</span>
+                    <span className="gradient-text">${total.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -256,7 +292,7 @@ export default function CheckoutPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#0080FF] py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#0066cc] disabled:cursor-not-allowed disabled:opacity-50"
+                className="glow-btn mt-6 flex w-full items-center justify-center gap-2 rounded-lg py-3.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {submitting ? (
                   <><Loader2 className="h-4 w-4 animate-spin" />Processing...</>
