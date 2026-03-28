@@ -19,6 +19,9 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer className="relative border-t border-white/[0.06]">
+      {/* Animated gradient line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] footer-gradient-line" />
+
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-3">
           {/* Brand */}

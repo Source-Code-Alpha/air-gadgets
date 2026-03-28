@@ -22,12 +22,12 @@ const iconMap: Record<string, React.ElementType> = {
 const defaultIcons = [Lightbulb, Shield, Thermometer, Speaker, Cpu, ChefHat];
 
 const accentColors = [
-  { border: "rgba(0, 200, 255, 0.4)", glow: "rgba(0, 200, 255, 0.12)", text: "#00C8FF" },
-  { border: "rgba(124, 58, 237, 0.4)", glow: "rgba(124, 58, 237, 0.12)", text: "#7C3AED" },
-  { border: "rgba(6, 182, 212, 0.4)", glow: "rgba(6, 182, 212, 0.12)", text: "#06B6D4" },
-  { border: "rgba(59, 130, 246, 0.4)", glow: "rgba(59, 130, 246, 0.12)", text: "#3B82F6" },
-  { border: "rgba(168, 85, 247, 0.4)", glow: "rgba(168, 85, 247, 0.12)", text: "#A855F7" },
-  { border: "rgba(34, 211, 238, 0.4)", glow: "rgba(34, 211, 238, 0.12)", text: "#22D3EE" },
+  { glow: "rgba(0, 200, 255, 0.12)", text: "#00C8FF" },
+  { glow: "rgba(124, 58, 237, 0.12)", text: "#7C3AED" },
+  { glow: "rgba(6, 182, 212, 0.12)", text: "#06B6D4" },
+  { glow: "rgba(59, 130, 246, 0.12)", text: "#3B82F6" },
+  { glow: "rgba(168, 85, 247, 0.12)", text: "#A855F7" },
+  { glow: "rgba(34, 211, 238, 0.12)", text: "#22D3EE" },
 ];
 
 interface Category {
@@ -70,24 +70,18 @@ export default function FeaturedCategories() {
               <a
                 key={cat.id}
                 href={`/category/${cat.slug}`}
-                className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] p-8 backdrop-blur-xl transition-all duration-500 hover:scale-[1.02]"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = accent.border;
-                  e.currentTarget.style.boxShadow = `0 0 50px ${accent.glow}`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
+                className="group relative overflow-hidden rounded-2xl p-[1px] transition-all duration-500 hover:scale-[1.02] animated-gradient-border"
               >
-                <div
-                  className="mb-4 inline-flex rounded-xl p-3 transition-transform duration-300 group-hover:scale-110"
-                  style={{ backgroundColor: `${accent.text}15`, color: accent.text }}
-                >
-                  <Icon className="h-7 w-7" />
+                <div className="relative rounded-2xl bg-white/[0.03] backdrop-blur-xl p-8 h-full">
+                  <div
+                    className="mb-4 inline-flex rounded-xl p-3 transition-transform duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${accent.text}15`, color: accent.text }}
+                  >
+                    <Icon className="h-7 w-7" />
+                  </div>
+                  <h3 className="mb-1 text-lg font-semibold text-white">{cat.name}</h3>
+                  <p className="text-sm text-gray-400/70">{cat.productCount} products</p>
                 </div>
-                <h3 className="mb-1 text-lg font-semibold text-white">{cat.name}</h3>
-                <p className="text-sm text-gray-400/70">{cat.productCount} products</p>
               </a>
             );
           })}
