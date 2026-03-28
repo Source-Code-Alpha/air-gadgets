@@ -21,7 +21,10 @@ export interface ProductCardData {
 
 export default function ProductCard({ product }: { product: ProductCardData }) {
   const { addToCart } = useCart();
-  const imageUrl = product.image || product.images?.[0] || "https://placehold.co/400x400/0a1628/0080FF?text=No+Image";
+  const imageUrl =
+    product.image ||
+    product.images?.[0] ||
+    "https://placehold.co/400x400/111827/0080FF?text=No+Image";
 
   const cartProduct = {
     id: product.id,
@@ -37,9 +40,9 @@ export default function ProductCard({ product }: { product: ProductCardData }) {
   };
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl glass-card transition-all duration-500 hover:scale-[1.03] hover:border-[#0080FF]/30 hover:shadow-[0_0_40px_rgba(0,128,255,0.12),0_8px_32px_rgba(0,0,0,0.4)]">
-      {/* Image section */}
-      <div className="relative aspect-square overflow-hidden bg-[#0a1628]">
+    <div className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl transition-all duration-500 hover:border-cyan-400/30 hover:bg-white/[0.06] hover:shadow-[0_0_40px_rgba(0,200,255,0.1)]">
+      {/* Image */}
+      <div className="relative aspect-square overflow-hidden">
         <Image
           src={imageUrl}
           alt={product.name}
@@ -47,22 +50,29 @@ export default function ProductCard({ product }: { product: ProductCardData }) {
           className="object-cover transition-transform duration-700 group-hover:scale-110"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
-        {/* Image overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-transparent to-transparent opacity-60" />
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-        {/* Price badge floating on image */}
-        <div className="absolute top-3 right-3 rounded-lg bg-[#0080FF]/90 backdrop-blur-sm px-3 py-1.5 text-sm font-bold text-white shadow-lg">
-          ${product.price.toFixed(2)}
+        {/* Price badge */}
+        <div className="absolute bottom-3 left-3 rounded-lg bg-black/50 px-3 py-1.5 backdrop-blur-md">
+          <span className="text-lg font-bold text-white">
+            ${product.price.toFixed(2)}
+          </span>
+          {product.compareAtPrice && (
+            <span className="ml-2 text-xs text-gray-400 line-through">
+              ${product.compareAtPrice.toFixed(2)}
+            </span>
+          )}
         </div>
 
-        {/* Compare price badge */}
+        {/* Save badge */}
         {product.compareAtPrice && (
-          <div className="absolute top-3 left-3 rounded-lg bg-red-500/90 backdrop-blur-sm px-2.5 py-1 text-xs font-semibold text-white">
-            Save ${(product.compareAtPrice - product.price).toFixed(0)}
+          <div className="absolute right-3 top-3 rounded-full bg-gradient-to-r from-pink-500 to-red-500 px-2.5 py-1 text-[10px] font-bold text-white shadow-lg">
+            SAVE ${(product.compareAtPrice - product.price).toFixed(0)}
           </div>
         )}
 
-        {/* Add to cart - slides up on hover */}
+        {/* Add to cart — slides up on hover */}
         <div className="absolute bottom-0 left-0 right-0 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
           <button
             onClick={(e) => {
@@ -70,8 +80,7 @@ export default function ProductCard({ product }: { product: ProductCardData }) {
               e.stopPropagation();
               addToCart(cartProduct);
             }}
-            className="flex w-full items-center justify-center gap-2 bg-gradient-to-r from-[#0080FF] to-[#00D4FF] py-3 text-sm font-semibold text-white transition-all hover:from-[#0066cc] hover:to-[#00B4DD]"
-            aria-label={`Add ${product.name} to cart`}
+            className="flex w-full items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 py-3 text-sm font-semibold text-white transition-all hover:from-blue-500 hover:to-cyan-400"
           >
             <ShoppingCart className="h-4 w-4" />
             Add to Cart
@@ -79,30 +88,15 @@ export default function ProductCard({ product }: { product: ProductCardData }) {
         </div>
       </div>
 
-      {/* Info section */}
-      <div className="p-5">
-        <h3 className="mb-1 text-base font-semibold text-white transition-colors group-hover:text-[#00D4FF]">
+      {/* Info */}
+      <div className="p-4">
+        <h3 className="mb-1 text-sm font-semibold text-white transition-colors group-hover:text-cyan-300">
           {product.name}
         </h3>
-        <p className="mb-3 line-clamp-2 text-sm text-gray-400">
+        <p className="line-clamp-2 text-xs text-gray-400/80">
           {product.shortDescription}
         </p>
-
-        {product.compareAtPrice && (
-          <div className="flex items-baseline gap-2">
-            <span className="text-xs text-gray-500 line-through">
-              ${product.compareAtPrice.toFixed(2)}
-            </span>
-          </div>
-        )}
       </div>
-
-      {/* Hover glow overlay */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background: "radial-gradient(circle at 50% 0%, rgba(0,128,255,0.08), transparent 70%)",
-        }}
-      />
     </div>
   );
 }

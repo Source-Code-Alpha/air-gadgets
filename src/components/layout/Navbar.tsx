@@ -34,7 +34,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#0a1628]/70 backdrop-blur-xl"
+      <nav className="sticky top-0 z-40 border-b border-white/[0.06] bg-black/20 backdrop-blur-2xl"
         style={{
           borderImage: "linear-gradient(90deg, transparent, rgba(0,128,255,0.2), rgba(0,212,255,0.15), rgba(124,58,237,0.2), transparent) 1",
         }}
