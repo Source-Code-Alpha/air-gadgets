@@ -60,7 +60,7 @@ export default function StatsCounter() {
           observer.unobserve(el);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.05, rootMargin: "0px 0px 100px 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
