@@ -20,9 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark scroll-smooth">
       <body
         className={`${inter.className} min-h-screen bg-black text-white antialiased`}
+        style={{ scrollBehavior: "smooth" }}
       >
         {/* Three.js Aurora animated background — fixed behind everything */}
         <AuroraWrapper />

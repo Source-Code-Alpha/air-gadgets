@@ -27,6 +27,13 @@
   --color-teal: #06B6D4;
 }
 
+/* ===== SMOOTH SCROLL ===== */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* ===== SCROLLBAR ===== */
 * {
   scrollbar-width: thin;
   scrollbar-color: #162340 #0a1628;
@@ -54,6 +61,15 @@ body {
   color: var(--foreground);
 }
 
+/* ===== GLOBAL SMOOTH TRANSITIONS ===== */
+a, button {
+  transition: all 0.3s ease;
+}
+
+img {
+  transition: transform 0.5s ease;
+}
+
 /* ===== ANIMATIONS ===== */
 
 @keyframes glow {
@@ -72,8 +88,8 @@ body {
 }
 
 @keyframes pulse-slow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
 }
 
 @keyframes float {

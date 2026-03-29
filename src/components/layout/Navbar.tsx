@@ -34,20 +34,20 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-40 border-b border-white/[0.06] bg-black/20 backdrop-blur-2xl"
+      <nav className="sticky top-0 z-40 bg-black/30 backdrop-blur-2xl border-b border-transparent"
         style={{
-          borderImage: "linear-gradient(90deg, transparent, rgba(0,128,255,0.2), rgba(0,212,255,0.15), rgba(124,58,237,0.2), transparent) 1",
+          borderImage: "linear-gradient(90deg, transparent, rgba(0,128,255,0.15), rgba(0,212,255,0.12), rgba(124,58,237,0.15), transparent) 1",
         }}
       >
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
               src="/logo-transparent.png"
               alt="Air Gadgets"
-              width={200}
-              height={56}
-              className="h-14 w-auto"
+              width={160}
+              height={45}
+              className="h-10 w-auto"
               priority
               unoptimized
             />
@@ -109,11 +109,10 @@ export default function Navbar() {
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
                 <span
-                  className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white"
+                  className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white animate-[cart-bounce_0.3s_ease]"
                   style={{
                     background: "linear-gradient(135deg, #0080FF, #00D4FF)",
-                    boxShadow: "0 0 10px rgba(0,128,255,0.4)",
-                    animation: "cart-bounce 0.3s ease",
+                    boxShadow: "0 0 12px rgba(0,128,255,0.5)",
                   }}
                 >
                   {cartCount}

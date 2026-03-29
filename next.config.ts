@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["host.docker.internal"],
   images: {
     dangerouslyAllowSVG: true,
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
